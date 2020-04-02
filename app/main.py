@@ -6,10 +6,10 @@ from app import utils
 def scheduled_function():
     current_value, bankier_time = get_current_stock()
     mmm = MinMaxManager()
-    mmm.save_new_values(current_value, bankier_time, utils.now())
-    globals = mmm.get_globals()
-    global_min = globals['min']
-    global_max = globals['max']
+    history = mmm.get_history()
+
+    global_min = float(history['min'])
+    global_max = float(history['max'])
 
     if current_value > global_max:
         print("O KURWA")
@@ -17,17 +17,11 @@ def scheduled_function():
     elif current_value < global_min:
         print("O KURCZE")
         # todo: send email
+    mmm.save_new_values(current_value, bankier_time, utils.now())
 
 
 def get_current_stock():
     sv = StockValue()
-    print("getting bankier website")
     bankier = sv.get_bankier()
-    print("parsing bankier website")
     value, time = sv.get_values(bankier)
     return value, time
-
-
-
-# if __name__ == '__main__':
-#     main()

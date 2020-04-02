@@ -2,13 +2,13 @@ import pandas as pd
 
 
 class MinMaxManager:
-    def __init__(self, filename='globals.csv'):
+    def __init__(self, filename='history.csv'):
         self.filename = filename
         self.global_min = None
         self.global_max = None
         self.history = pd.read_csv(filename, delimiter=',', index_col=0)
 
-    def get_globals(self):
+    def get_history(self):
         self.global_min = self.history['value'].min()
         self.global_max = self.history['value'].max()
 
