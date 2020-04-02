@@ -18,9 +18,16 @@ class MinMaxManager:
         return {'min': self.global_min,
                 'max': self.global_max}
 
-    def save_new_values(self, value, time):
-        self.history.loc[len(self.history)] = {'value': value, 'time': time}
+    def save_new_values(self, value, bankier_time, server_time):
+        self.history.loc[len(self.history)] = {'value': value,
+                                               'bankier_time': bankier_time,
+                                               'server_time': server_time}
         self.history.to_csv(self.filename)
+
+        print(f"New row added to history file:"
+              f"\n\tValue: {value}"
+              f"\n\tBankier time: {bankier_time}"
+              f"\n\tServer time: {server_time}")
 
         return self.history
 
