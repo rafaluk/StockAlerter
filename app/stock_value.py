@@ -1,19 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
-from app.utils import convert_epoch
+from app.utils import convert_epoch, calc_time
+
 
 
 class StockValue:
     def __init__(self, symbol='CDPROJEKT'):
         self.symbol = str(symbol)
 
-    # todo: decorator for printing time elapsed (sent in mail?)
+    @calc_time
     def get_bankier(self):
         address = 'https://www.bankier.pl/inwestowanie/profile/quote.html?symbol=' + self.symbol
         raw_site = requests.get(address).text.encode("utf-8")
         parsed_site = BeautifulSoup(raw_site, features="html.parser")
         return parsed_site
 
+    @calc_time
     def get_values(self, parsed_site):
         """Return tuple (stock_value, trade_time)."""
 
