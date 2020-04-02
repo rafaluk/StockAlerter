@@ -1,10 +1,6 @@
-# one task: get stock value from bankier.pl by webscraping ir
-# no free API available :(
-
 import requests
 from bs4 import BeautifulSoup
-import datetime
-from utils import convert_epoch
+from app.utils import convert_epoch
 
 
 class StockValue:
@@ -22,9 +18,6 @@ class StockValue:
         """Return tuple (stock_value, trade_time)."""
 
         trades = parsed_site.find_all("div", {'id': 'last-trade-' + self.symbol})
-        if len(trades) > 1:
-            # todo: what if >1 last-trade-symbol
-            print("last trades > 1!!!! todo")
 
         stock_value = float(trades[0]['data-last'])
         trade_time_epoch = int(trades[0]['data-last-epoch'])

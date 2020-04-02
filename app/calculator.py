@@ -1,6 +1,3 @@
-from stock_value import StockValue
-
-
 # todo: @dataclass decorator would help
 class Calculator:
 
