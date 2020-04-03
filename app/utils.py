@@ -1,6 +1,6 @@
 from datetime import datetime
 from time import time
-import numpy as np
+
 
 def convert_epoch(epoch_time):
     int_time = int(epoch_time)/1000

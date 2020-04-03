@@ -1,5 +1,5 @@
 from app.stock_value import StockValue
-from app.min_max_manager import MinMaxManager
+from app.history_manager import HistoryManager
 from app.email_sender import send_email
 from app import utils
 import os
@@ -11,7 +11,7 @@ MY_EMAIL = os.environ.get('MY_GMAIL')
 
 def scheduled_function():
     current_value, bankier_time = get_current_stock()
-    mmm = MinMaxManager()
+    mmm = HistoryManager()
     history = mmm.get_history()
 
     global_min = float(history['min'])
