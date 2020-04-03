@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class MinMaxManager:
+class HistoryManager:
     def __init__(self, filename='history.csv'):
         self.filename = filename
         self.global_min = None
