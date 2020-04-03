@@ -1,10 +1,12 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from app.utils import calc_time
 
 
-
-def send_email(login, password, email_from, email_to, subject, message):
+@calc_time
+# def send_email(login, password, email_from, email_to, subject, message):
+def send_email(login, password, recipient, subject, message):
     # setup and start a SMTP server
     server = smtplib.SMTP(host='smtp.gmail.com', port=587)
     server.starttls()
@@ -12,8 +14,8 @@ def send_email(login, password, email_from, email_to, subject, message):
 
     # create the message
     msg = MIMEMultipart()
-    msg['From'] = email_from
-    msg['To'] = email_to
+    msg['From'] = login
+    msg['To'] = recipient
     msg['Subject'] = subject
 
     # add in the message body

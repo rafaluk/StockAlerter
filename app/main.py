@@ -19,15 +19,24 @@ def scheduled_function():
 
     if current_value > global_max:
         subject = 'New global maximum'
-        message = f'(current_value) {current_value} > {global_max} (global_max)'
+        message = f'Current_value: {current_value} > {global_max} (global_max)'
         print(message)
-        send_email(LOGIN, PASSWORD, LOGIN, MY_EMAIL, subject, message)
+        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
+                   subject=subject, message=message)
 
     elif current_value < global_min:
         subject = 'New global minimum'
-        message = f'(current_value) {current_value} < {global_min} (global_max)'
+        message = f'Current_value: {current_value} < {global_min} (global_max)'
         print(message)
-        send_email(LOGIN, PASSWORD, LOGIN, MY_EMAIL, subject, message)
+        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
+                   subject=subject, message=message)
+
+    else:
+        subject = 'Standard raport'
+        message = f'Current_value: {current_value}.'
+        print(message)
+        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
+                   subject=subject, message=message)
 
     mmm.save_new_values(current_value, bankier_time, utils.now())
 

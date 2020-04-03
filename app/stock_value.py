@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from app.utils import convert_epoch, calc_time
 
 
-
 class StockValue:
     def __init__(self, symbol='CDPROJEKT'):
         self.symbol = str(symbol)
