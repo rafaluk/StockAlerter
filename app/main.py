@@ -32,11 +32,8 @@ def scheduled_function():
                    subject=subject, message=message)
 
     else:
-        subject = 'Standard raport'
         message = f'Current_value: {current_value}.'
-        print(message)
-        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
-                   subject=subject, message=message)
+        print(message + "; email not sent.")
 
     mmm.save_new_values(current_value, bankier_time, utils.now())
 

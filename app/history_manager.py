@@ -12,9 +12,6 @@ class HistoryManager:
         self.global_min = self.history['value'].min()
         self.global_max = self.history['value'].max()
 
-        print(f"global_min: {self.global_min}")
-        print(f"global_max: {self.global_max}")
-
         return {'min': self.global_min,
                 'max': self.global_max}
 
@@ -24,7 +21,7 @@ class HistoryManager:
                                                'server_time': server_time}
         self.history.to_csv(self.filename)
 
-        print(f"New row added to history file:"
+        print(f"New data added to history:"
               f"\n\tValue: {value}"
               f"\n\tBankier time: {bankier_time}"
               f"\n\tServer time: {server_time}")

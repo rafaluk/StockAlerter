@@ -5,7 +5,6 @@ from app.utils import calc_time
 
 
 @calc_time
-# def send_email(login, password, email_from, email_to, subject, message):
 def send_email(login, password, recipient, subject, message):
     # setup and start a SMTP server
     server = smtplib.SMTP(host='smtp.gmail.com', port=587)

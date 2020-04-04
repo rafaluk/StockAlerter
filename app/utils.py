@@ -18,6 +18,6 @@ def calc_time(func):
         result = func(*args, **kwargs)
         end_time = time()
         elapsed_time = end_time - start_time
-        print(f"Execution of {func.__name__!r} done in {round(elapsed_time, 2)} seconds.")
+        print(f"> Execution of {func.__name__!r} done in {round(elapsed_time, 2)} seconds.")
         return result
     return wrapper
