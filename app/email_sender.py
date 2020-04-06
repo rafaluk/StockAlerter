@@ -1,8 +1,6 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-from app.main import LOGIN, PASSWORD, MY_EMAIL
 from app.utils import calc_time
 
 
@@ -30,6 +28,12 @@ def send_email(login, password, recipient, subject, message):
 
 
 def compare_and_send(current_value, global_min, global_max):
+    import os
+
+    LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
+    PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
+    MY_EMAIL = os.environ.get('MY_GMAIL')
+
     if current_value > global_max:
         subject = 'New global maximum'
         message = f'Current_value: {current_value} > {global_max} (global_max)'

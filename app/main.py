@@ -2,11 +2,6 @@ from app.stock_value import StockValue
 from app.history_manager import HistoryManager
 from app.email_sender import compare_and_send
 from app import utils
-import os
-
-LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
-PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
-MY_EMAIL = os.environ.get('MY_GMAIL')
 
 
 def scheduled_function():
@@ -19,7 +14,6 @@ def scheduled_function():
     global_max = float(history['max'])
 
     compare_and_send(current_value, global_min, global_max)
-
     hm.save_new_values(current_value, bankier_time, utils.now())
 
 
