@@ -5,8 +5,6 @@ import os
 class HistoryManager:
     def __init__(self, filename='history.csv'):
         self.filename = filename
-        self.global_min = None
-        self.global_max = None
         if not os.path.exists(filename):
             with open(filename, 'w') as file:
                 # todo: add mail and stock

@@ -11,7 +11,7 @@ class StockValue:
     @calc_time
     def get_bankier(self):
         """Gets bankier.pl website of a stock, specified with symbol variable.
-        
+
         :return: Source code of bankier.pl website."""
 
         address = self.config['sources']['bankier'] + self.symbol

@@ -6,13 +6,13 @@ from app.history_manager import HistoryManager
 from app.email_sender import prepare_min_max_email, prepare_daily_email
 
 
-def run_extreme_scheduler():
+def run_min_max_scheduler():
     """Check current prices and compare it with global minimum/maximum.
     If the price exceeds one of extremes, the mail is sent."""
 
     scheduler = BackgroundScheduler()
-    # todo: change hours. GPW works 9-17.
-    scheduler.add_job(func=run_for_all, trigger="interval",
+    # todo: change hours. GPW works 9-17, mon-fri
+    scheduler.add_job(func=min_max_for_all, trigger="interval",
                       seconds=10)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
@@ -24,19 +24,23 @@ def run_regular_scheduler():
     # todo: daily min, max, open, close
     # todo: attach a chart
     # todo: one mail for one recipient with different stocks
-    pass
+    scheduler = BackgroundScheduler()
+    # todo: change hours. GPW works 9-17.
+    scheduler.add_job(func=prepare_daily_email, trigger="cron",
+                      hour=18, day_of_week='mon-fri')
+    scheduler.start()
+    atexit.register(lambda: scheduler.shutdown())
 
 
-def run_for_all():
+def min_max_for_all():
     config = get_config()
+
     for recipient in config['recipients']:
-        for stock in recipient['stocks']:
         for stock in recipient['transactions']:
             print(recipient['address'], stock['symbol'])
 
             print('\n' + '-'*50 + '\n')
 
-            sv = StockValue(stock['symbol'])
             # todo: this should be extracted to prepare_mail (chyba)
             sv = StockValue(symbol=stock['symbol'], config=config)
             bankier = sv.get_bankier()
