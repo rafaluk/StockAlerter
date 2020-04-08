@@ -5,7 +5,7 @@ from app import utils
 
 
 def scheduled_function():
-    print('\n' + '-'*30 + '\n')
+    print('\n' + '-'*50 + '\n')
     current_value, bankier_time = get_current_stock()
     hm = HistoryManager()
     history = hm.get_history()

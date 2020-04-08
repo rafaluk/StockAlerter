@@ -10,7 +10,7 @@ app = Flask(__name__)
 # todo: change hours. GPW works 9-17.
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=scheduled_function, trigger="interval",
-                  seconds=10)
+                  minutes=10)
 
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
