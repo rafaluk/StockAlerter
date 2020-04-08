@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 
 class HistoryManager:
@@ -6,6 +7,9 @@ class HistoryManager:
         self.filename = filename
         self.global_min = None
         self.global_max = None
+        if not os.path.exists(filename):
+            with open(filename, 'w') as file:
+                file.write(',value,bankier_time,server_time')
         self.history = pd.read_csv(filename, delimiter=',', index_col=0)
 
     def get_history(self):
