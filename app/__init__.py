@@ -1,8 +1,8 @@
 from flask import Flask
-from app.scheduling import run_scheduler
-from app.stock_value import StockValue
-from app.history_manager import HistoryManager
+from app.scheduling import run_extreme_scheduler
 
 app = Flask(__name__)
 
-run_scheduler()
+# todo: run config checker
+run_extreme_scheduler()
+# todo: run_regular_scheduler()
