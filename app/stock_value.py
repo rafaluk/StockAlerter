@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from app.utils import convert_epoch, calc_time
+from app.utils import convert_epoch, calc_time, get_config
 
 
 class StockValue:
@@ -9,7 +9,8 @@ class StockValue:
 
     @calc_time
     def get_bankier(self):
-        address = 'https://www.bankier.pl/inwestowanie/profile/quote.html?symbol=' + self.symbol
+        config = get_config()
+        address = config['sources']['bankier'] + self.symbol
         raw_site = requests.get(address).text.encode("utf-8")
         parsed_site = BeautifulSoup(raw_site, features="html.parser")
         return parsed_site

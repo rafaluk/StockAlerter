@@ -5,6 +5,7 @@ from app import utils
 
 
 def scheduled_function():
+    # todo: call this function for all recipients/stocks in config
     print('\n' + '-'*50 + '\n')
     current_value, bankier_time = get_current_stock()
     hm = HistoryManager()
@@ -18,6 +19,7 @@ def scheduled_function():
 
 
 def get_current_stock():
+    # todo: get stock symbol from config (here as parameter)
     sv = StockValue()
     bankier = sv.get_bankier()
     value, time = sv.get_values(bankier)

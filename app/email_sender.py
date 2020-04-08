@@ -1,16 +1,17 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from app.utils import calc_time, Constants
+from app.utils import calc_time, Constants, get_config
 from app.calculator import Calculator
 
 
 @calc_time
 def send_email(login, password, recipient, subject, message, test=False):
     if test: return
-    # setup and start a SMTP server
-    # todo: extract SMTP details to config file
-    server = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    config = get_config()
+
+    server = smtplib.SMTP(host=config['smtp']['host'],
+                          port=config['smtp']['port'])
     server.starttls()
     server.login(login, password)
 

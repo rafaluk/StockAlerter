@@ -2,6 +2,7 @@ from datetime import datetime
 from time import time
 from dataclasses import dataclass
 import os
+import json
 
 
 @dataclass
@@ -11,6 +12,10 @@ class Constants:
     LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
     PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
     MY_EMAIL = os.environ.get('MY_GMAIL')
+
+
+def get_config():
+    return json.load(open('config.json'))
 
 
 def convert_epoch(epoch_time):
