@@ -32,16 +32,16 @@ def send_email(login, password, recipient, subject, message, test=False):
     del msg
 
 
-def compose_message(calculator: Calculator, current_value):
-    return f'Current_value: {current_value}\n' \
-        f'Commission buy: {calculator.commissions()[0]}\n' \
-        f'Commission sell: {calculator.commissions()[1]}\n' \
-        f'revenue_without_commission: {calculator.results_without_commission()[0]}\n' \
-        f'cost_without_commission: {calculator.results_without_commission()[1]}\n' \
-        f'profit_without_commission: {calculator.results_without_commission()[2]}\n' \
-        f'revenue_with_commission: {calculator.results_with_commission()[0]}\n' \
-        f'cost_with_commission: {calculator.results_with_commission()[1]}\n' \
-        f'profit_with_commission: {calculator.results_with_commission()[2]}\n'
+def compose_message(calculator: Calculator, current_value, currency='PLN'):
+    return f'Current_value: {current_value} {currency}\n ' \
+        f'Commission buy: {calculator.commissions()[0]} {currency}\n' \
+        f'Commission sell: {calculator.commissions()[1]} {currency}\n' \
+        f'revenue_without_commission: {calculator.results_without_commission()[0]} {currency}\n' \
+        f'cost_without_commission: {calculator.results_without_commission()[1]} {currency}\n' \
+        f'profit_without_commission: {calculator.results_without_commission()[2]} {currency}\n' \
+        f'revenue_with_commission: {calculator.results_with_commission()[0]} {currency}\n' \
+        f'cost_with_commission: {calculator.results_with_commission()[1]} {currency}\n' \
+        f'profit_with_commission: {calculator.results_with_commission()[2]} {currency}\n'
 
 
 def compare_and_send(current_value, global_min, global_max):
@@ -53,6 +53,7 @@ def compare_and_send(current_value, global_min, global_max):
     PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
     MY_EMAIL = os.environ.get('MY_GMAIL')
 
+    # todo: extract these values
     c = Calculator(9, 271.1, 9, current_value)
 
     message = compose_message(c, current_value)
