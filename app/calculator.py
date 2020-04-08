@@ -30,23 +30,23 @@ class Calculator:
         self.commission_buy = self.number_of_stocks_buy * self.price_buy * self.COMISSION_THRESHOLD
         self.commission_sell = self.number_of_stocks_sell * self.price_sell * self.COMISSION_THRESHOLD
 
-        return self.commission_buy, self.commission_sell
+        return round(self.commission_buy, 2), round(self.commission_sell, 2)
 
     def results_without_commission(self):
         self.revenue_without_commission = self.number_of_stocks_sell * self.price_sell
         self.cost_without_commission = self.number_of_stocks_buy * self.price_buy
         self.profit_without_commission = round(self.revenue_without_commission - self.cost_without_commission, 4)
 
-        return self.revenue_without_commission, self.cost_without_commission, self.profit_without_commission
+        return round(self.revenue_without_commission, 2), round(self.cost_without_commission, 2), round(self.profit_without_commission, 2)
 
     def results_with_commission(self):
         self.revenue_with_commission = self.revenue_without_commission - self.commission_sell
         self.cost_with_commission = self.cost_without_commission + self.commission_buy
         self.profit_with_commission = self.revenue_with_commission - self.cost_with_commission
 
-        return self.revenue_with_commission, self.cost_with_commission, self.profit_with_commission
+        return round(self.revenue_with_commission, 2), round(self.cost_with_commission, 2), round(self.profit_with_commission, 2)
 
     def profit_after_tax(self):
         self.profit_with_commission_after_tax = self.profit_with_commission * (1 - self.BELKA_TAX)
 
-        return self.profit_with_commission_after_tax
+        return round(self.profit_with_commission_after_tax, 2)
