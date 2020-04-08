@@ -1,5 +1,16 @@
 from datetime import datetime
 from time import time
+from dataclasses import dataclass
+import os
+
+
+@dataclass
+class Constants:
+    COMMISSION_RATE = 0.0039
+    CAPITAL_GAINS_TAX = 0.19
+    LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
+    PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
+    MY_EMAIL = os.environ.get('MY_GMAIL')
 
 
 def convert_epoch(epoch_time):

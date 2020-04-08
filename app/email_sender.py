@@ -1,7 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from app.utils import calc_time
+from app.utils import calc_time, Constants
 from app.calculator import Calculator
 
 
@@ -47,14 +47,7 @@ def compose_message(calculator: Calculator, current_value, currency='PLN'):
 
 
 def compare_and_send(current_value, global_min, global_max):
-    import os
     # todo: add some global counter, so every X times mail is sent anyway
-
-    # import environment variables
-    LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
-    PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
-    MY_EMAIL = os.environ.get('MY_GMAIL')
-
     # todo: extract these values
     c = Calculator(9, 271.1, 9, current_value)
 
@@ -63,12 +56,12 @@ def compare_and_send(current_value, global_min, global_max):
 
     if current_value > global_max:
         subject = f'New Max. Profit: {c.profit_after_tax()}'
-        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
+        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
                    subject=subject, message=message)
 
     elif current_value < global_min:
         subject = f'New Min. Profit: {c.profit_after_tax()}'
-        send_email(login=LOGIN, password=PASSWORD, recipient=MY_EMAIL,
+        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
                    subject=subject, message=message)
 
     else:

@@ -1,9 +1,7 @@
-# todo: @dataclass decorator would help
-class Calculator:
+from app.utils import Constants
 
-    # constants
-    COMISSION_THRESHOLD = 0.0039
-    BELKA_TAX = 0.19
+
+class Calculator:
 
     def __init__(self, number_of_stocks_buy, price_buy, number_of_stocks_sell, price_sell):
         self.number_of_stocks_buy = number_of_stocks_buy
@@ -27,8 +25,8 @@ class Calculator:
         print('\tprice_sell:', self.price_sell)
 
     def commissions(self):
-        self.commission_buy = self.number_of_stocks_buy * self.price_buy * self.COMISSION_THRESHOLD
-        self.commission_sell = self.number_of_stocks_sell * self.price_sell * self.COMISSION_THRESHOLD
+        self.commission_buy = self.number_of_stocks_buy * self.price_buy * Constants.COMMISSION_RATE
+        self.commission_sell = self.number_of_stocks_sell * self.price_sell * Constants.COMMISSION_RATE
 
         return round(self.commission_buy, 2), round(self.commission_sell, 2)
 
@@ -51,6 +49,6 @@ class Calculator:
         return round(self.revenue_with_commission, 2), round(self.cost_with_commission, 2), round(self.profit_with_commission, 2)
 
     def profit_after_tax(self):
-        self.profit_with_commission_after_tax = self.profit_with_commission * (1 - self.BELKA_TAX)
+        self.profit_with_commission_after_tax = self.profit_with_commission * (1 - Constants.CAPITAL_GAINS_TAX)
 
         return round(self.profit_with_commission_after_tax, 2)
