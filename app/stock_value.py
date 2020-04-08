@@ -1,23 +1,29 @@
 import requests
 from bs4 import BeautifulSoup
-from app.utils import convert_epoch, calc_time, get_config
+from app.utils import convert_epoch, calc_time
 
 
 class StockValue:
-    def __init__(self, symbol='CDPROJEKT'):
+    def __init__(self, symbol, config):
         self.symbol = str(symbol)
+        self.config = config
 
     @calc_time
     def get_bankier(self):
-        config = get_config()
-        address = config['sources']['bankier'] + self.symbol
+        """Gets bankier.pl website of a stock, specified with symbol variable.
+        
+        :return: Source code of bankier.pl website."""
+
+        address = self.config['sources']['bankier'] + self.symbol
         raw_site = requests.get(address).text.encode("utf-8")
         parsed_site = BeautifulSoup(raw_site, features="html.parser")
         return parsed_site
 
     @calc_time
     def get_values(self, parsed_site):
-        """Return tuple (stock_value, trade_time)."""
+        """Scrapes bankier.pl site.
+
+        :return: (stock_value, trade_time)"""
 
         trades = parsed_site.find_all("div", {'id': 'last-trade-' + self.symbol})
 

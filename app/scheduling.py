@@ -31,11 +31,14 @@ def run_for_all():
     config = get_config()
     for recipient in config['recipients']:
         for stock in recipient['stocks']:
+        for stock in recipient['transactions']:
             print(recipient['address'], stock['symbol'])
 
             print('\n' + '-'*50 + '\n')
 
             sv = StockValue(stock['symbol'])
+            # todo: this should be extracted to prepare_mail (chyba)
+            sv = StockValue(symbol=stock['symbol'], config=config)
             bankier = sv.get_bankier()
             current_value, bankier_time = sv.get_values(bankier)
 
