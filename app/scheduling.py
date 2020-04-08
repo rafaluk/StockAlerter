@@ -3,7 +3,7 @@ import atexit
 from app.stock_value import StockValue
 from app.utils import now, get_config
 from app.history_manager import HistoryManager
-from app.email_sender import prepare_email
+from app.email_sender import prepare_min_max_email, prepare_daily_email
 
 
 def run_extreme_scheduler():
@@ -41,11 +41,9 @@ def run_for_all():
 
             # todo: refactor history (add: mail, stock)
             hm = HistoryManager()
-            history = hm.get_history()
 
-            # todo: these will have to be changed
-            global_min = float(history['min'])
-            global_max = float(history['max'])
+            global_min = hm.get_min()
+            global_max = hm.get_max()
 
-            prepare_email(current_value, global_min, global_max)
-            hm.save_new_values(current_value, bankier_time, now())
+            prepare_min_max_email(current_value, global_min, global_max, config)
+            hm.update_history(current_value, bankier_time, now())
