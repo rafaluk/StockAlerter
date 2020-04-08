@@ -33,16 +33,17 @@ def send_email(login, password, recipient, subject, message, test=False):
 
 
 def compose_message(calculator: Calculator, current_value, currency='PLN'):
-    return f'Current_value: {current_value} {currency}\n ' \
-        f'Commission buy: {calculator.commissions()[0]} {currency}\n' \
-        f'Commission sell: {calculator.commissions()[1]} {currency}\n' \
-        f'Revenue without commission: {calculator.results_without_commission()[0]} {currency}\n' \
-        f'Cost without commission: {calculator.results_without_commission()[1]} {currency}\n' \
-        f'Profit without commission: {calculator.results_without_commission()[2]} {currency}\n' \
-        f'Revenue with commission: {calculator.results_with_commission()[0]} {currency}\n' \
-        f'Cost with commission: {calculator.results_with_commission()[1]} {currency}\n' \
-        f'Profit with commission: {calculator.results_with_commission()[2]} {currency}\n' \
-        f'Profit after tax: {calculator.profit_after_tax()} {currency}\n'
+    return f'Current_value:\t\t\t{current_value} {currency}\n' \
+        f'Change:\t\t\t\t{calculator.change()}%\n' \
+        f'Commission buy:\t\t\t{calculator.commissions()[0]} {currency}\n' \
+        f'Commission sell:\t\t{calculator.commissions()[1]} {currency}\n' \
+        f'Revenue without commission:\t{calculator.results_without_commission()[0]} {currency}\n' \
+        f'Cost without commission:\t{calculator.results_without_commission()[1]} {currency}\n' \
+        f'Profit without commission:\t{calculator.results_without_commission()[2]} {currency}\n' \
+        f'Revenue with commission:\t{calculator.results_with_commission()[0]} {currency}\n' \
+        f'Cost with commission:\t\t{calculator.results_with_commission()[1]} {currency}\n' \
+        f'Profit with commission:\t\t{calculator.results_with_commission()[2]} {currency}\n' \
+        f'Profit after tax (19%):\t\t{calculator.profit_after_tax()} {currency}\n'
 
 
 def compare_and_send(current_value, global_min, global_max):
