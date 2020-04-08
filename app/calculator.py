@@ -32,6 +32,10 @@ class Calculator:
 
         return round(self.commission_buy, 2), round(self.commission_sell, 2)
 
+    def change(self):
+        change = (self.price_sell - self.price_buy) / self.price_buy
+        return round(change*100, 2)
+
     def results_without_commission(self):
         self.revenue_without_commission = self.number_of_stocks_sell * self.price_sell
         self.cost_without_commission = self.number_of_stocks_buy * self.price_buy
