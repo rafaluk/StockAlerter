@@ -1,9 +1,9 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 from app.stock_value import StockValue
-from app import utils
+from app.utils import now, get_config
 from app.history_manager import HistoryManager
-from app.email_sender import compare_and_send
+from app.email_sender import prepare_email
 
 
 def run_extreme_scheduler():
@@ -12,7 +12,7 @@ def run_extreme_scheduler():
 
     scheduler = BackgroundScheduler()
     # todo: change hours. GPW works 9-17.
-    scheduler.add_job(func=scheduled_function, trigger="interval",
+    scheduler.add_job(func=run_for_all, trigger="interval",
                       seconds=10)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
@@ -20,22 +20,32 @@ def run_extreme_scheduler():
 
 def run_regular_scheduler():
     """Send regular mail with current prices."""
+    # todo: schedule for 18:00 every day
+    # todo: daily min, max, open, close
+    # todo: attach a chart
+    # todo: one mail for one recipient with different stocks
     pass
 
 
-def scheduled_function():
-    # todo: call this function for all recipients/stocks in config
-    print('\n' + '-'*50 + '\n')
+def run_for_all():
+    config = get_config()
+    for recipient in config['recipients']:
+        for stock in recipient['stocks']:
+            print(recipient['address'], stock['symbol'])
 
-    sv = StockValue()
-    bankier = sv.get_bankier()
-    current_value, bankier_time = sv.get_values(bankier)
+            print('\n' + '-'*50 + '\n')
 
-    hm = HistoryManager()
-    history = hm.get_history()
+            sv = StockValue(stock['symbol'])
+            bankier = sv.get_bankier()
+            current_value, bankier_time = sv.get_values(bankier)
 
-    global_min = float(history['min'])
-    global_max = float(history['max'])
+            # todo: refactor history (add: mail, stock)
+            hm = HistoryManager()
+            history = hm.get_history()
 
-    compare_and_send(current_value, global_min, global_max)
-    hm.save_new_values(current_value, bankier_time, utils.now())
+            # todo: these will have to be changed
+            global_min = float(history['min'])
+            global_max = float(history['max'])
+
+            prepare_email(current_value, global_min, global_max)
+            hm.save_new_values(current_value, bankier_time, now())
