@@ -50,6 +50,8 @@ class Calculator:
         return round(self.revenue_with_commission, 2), round(self.cost_with_commission, 2), round(self.profit_with_commission, 2)
 
     def profit_after_tax(self):
-        self.profit_with_commission_after_tax = self.profit_with_commission * (1 - Constants.CAPITAL_GAINS_TAX)
+        if self.profit_without_commission > 0:
+            self.profit_with_commission_after_tax = self.profit_with_commission * (1 - Constants.CAPITAL_GAINS_TAX)
+            return round(self.profit_with_commission_after_tax, 2)
 
-        return round(self.profit_with_commission_after_tax, 2)
+        return self.profit_with_commission
