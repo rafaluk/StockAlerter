@@ -29,18 +29,19 @@ def send_email(login, password, recipient, subject, message, config):
 
 
 def compose_min_max_message(calculator, current_value, currency='PLN'):
-    # todo: add last value of given stock
-    return f'Current_value:\t\t\t{current_value} {currency}\n' \
-        f'Change:\t\t\t\t{calculator.change()}%\n' \
-        f'Commission buy:\t\t\t{calculator.commissions()[0]} {currency}\n' \
-        f'Commission sell:\t\t{calculator.commissions()[1]} {currency}\n' \
-        f'Revenue without commission:\t{calculator.results_without_commission()[0]} {currency}\n' \
-        f'Cost without commission:\t{calculator.results_without_commission()[1]} {currency}\n' \
-        f'Profit without commission:\t{calculator.results_without_commission()[2]} {currency}\n' \
-        f'Revenue with commission:\t{calculator.results_with_commission()[0]} {currency}\n' \
-        f'Cost with commission:\t\t{calculator.results_with_commission()[1]} {currency}\n' \
-        f'Profit with commission:\t\t{calculator.results_with_commission()[2]} {currency}\n' \
-        f'Profit after tax (19%):\t\t{calculator.profit_after_tax()} {currency}\n'
+    return f'Current price: {current_value} {currency}, ' \
+        f'current value: {current_value} {currency} * {calculator.number_of_stocks_buy} = ' \
+        f'{current_value*calculator.number_of_stocks_buy} {currency}\n' \
+        f'Your price: {calculator.price_buy} {currency}, ' \
+        f'you paid: {calculator.price_buy} {currency} * {calculator.number_of_stocks_buy} = ' \
+        f'{calculator.price_buy*calculator.number_of_stocks_buy} {currency}\n' \
+        f'Price change: {calculator.change()}% ({calculator.price_buy} {currency} -> {current_value} {currency})\n' \
+        f'Commissions: {calculator.commissions()[0] + calculator.commissions()[1]} {currency} = ' \
+        f'{calculator.commissions()[0]} {currency} (buy) + ' \
+        f'{calculator.commissions()[1]} {currency} (sell)\n' \
+        f'Profits: {calculator.results_without_commission()[2]} {currency} (without commision), ' \
+        f'{calculator.results_with_commission()[2]} {currency} (with commision), ' \
+        f'{calculator.profit_after_tax()} {currency} (after 19% tax)\n'
 
 
 def prepare_min_max_email(symbol, current_value, global_min, global_max, config, calculator):
