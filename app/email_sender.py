@@ -44,19 +44,19 @@ def compose_min_max_message(calculator, current_value, currency='PLN'):
         f'{calculator.profit_after_tax()} {currency} (after 19% tax)\n'
 
 
-def prepare_min_max_email(symbol, current_value, global_min, global_max, config, calculator):
+def prepare_min_max_email(user, symbol, current_value, global_min, global_max, config, calculator):
 
     message = compose_min_max_message(calculator, current_value)
     print(message)
 
     if current_value > global_max:
         subject = f'[{symbol}] New Max. Profit: {calculator.profit_after_tax()}'
-        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
+        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=user,
                    subject=subject, message=message, config=config)
 
     elif current_value < global_min:
         subject = f'[{symbol}] New Min. Profit: {calculator.profit_after_tax()}'
-        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
+        send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=user,
                    subject=subject, message=message, config=config)
 
     else:
@@ -64,5 +64,5 @@ def prepare_min_max_email(symbol, current_value, global_min, global_max, config,
 
 
 def prepare_daily_email(user, current_value, config):
-    send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
+    send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=user,
                subject='DAILY TEST', message='', config=config)

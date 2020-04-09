@@ -54,8 +54,8 @@ def min_max_for_all():
                                     transaction['buy_quantity'],
                                     current_value)
             if transaction['min_max_mail'] == 'yes':
-                prepare_min_max_email(transaction['symbol'], current_value, global_min,
-                                      global_max, config, calculator)
+                prepare_min_max_email(recipient['address'], transaction['symbol'], current_value,
+                                      global_min, global_max, config, calculator)
             hm.update_history(current_value, transaction['symbol'], recipient['address'], bankier_time, now())
 
 
