@@ -28,7 +28,7 @@ def send_email(login, password, recipient, subject, message, config):
     del msg
 
 
-def compose_message(calculator, current_value, currency='PLN'):
+def compose_min_max_message(calculator, current_value, currency='PLN'):
     # todo: add last value of given stock
     return f'Current_value:\t\t\t{current_value} {currency}\n' \
         f'Change:\t\t\t\t{calculator.change()}%\n' \
@@ -45,7 +45,7 @@ def compose_message(calculator, current_value, currency='PLN'):
 
 def prepare_min_max_email(symbol, current_value, global_min, global_max, config, calculator):
 
-    message = compose_message(calculator, current_value)
+    message = compose_min_max_message(calculator, current_value)
     print(message)
 
     if current_value > global_max:
@@ -62,6 +62,6 @@ def prepare_min_max_email(symbol, current_value, global_min, global_max, config,
         print("Email not sent.")
 
 
-def prepare_daily_email(current_value, config):
+def prepare_daily_email(user, current_value, config):
     send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
                subject='DAILY TEST', message='', config=config)

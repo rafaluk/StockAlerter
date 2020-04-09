@@ -32,6 +32,7 @@ class Calculator:
 
     def change(self):
         change = (self.price_sell - self.price_buy) / self.price_buy
+
         return round(change*100, 2)
 
     def results_without_commission(self):

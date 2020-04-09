@@ -19,7 +19,6 @@ class StockValue:
         parsed_site = BeautifulSoup(raw_site, features="html.parser")
         return parsed_site
 
-    @calc_time
     def get_values(self, parsed_site):
         """Scrapes bankier.pl site.
 
