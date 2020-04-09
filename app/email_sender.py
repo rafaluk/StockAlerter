@@ -28,7 +28,7 @@ def send_email(login, password, recipient, subject, message, config):
     del msg
 
 
-def compose_message(calculator: Calculator, current_value, currency='PLN'):
+def compose_message(calculator, current_value, currency='PLN'):
     # todo: add last value of given stock
     return f'Current_value:\t\t\t{current_value} {currency}\n' \
         f'Change:\t\t\t\t{calculator.change()}%\n' \
@@ -43,21 +43,18 @@ def compose_message(calculator: Calculator, current_value, currency='PLN'):
         f'Profit after tax (19%):\t\t{calculator.profit_after_tax()} {currency}\n'
 
 
-def prepare_min_max_email(current_value, global_min, global_max, config):
-    # todo: add some global counter, so every X times mail is sent anyway
-    # todo: extract these values
-    c = Calculator(9, 271.1, 9, current_value)
+def prepare_min_max_email(symbol, current_value, global_min, global_max, config, calculator):
 
-    message = compose_message(c, current_value)
+    message = compose_message(calculator, current_value)
     print(message)
 
     if current_value > global_max:
-        subject = f'New Max. Profit: {c.profit_after_tax()}'
+        subject = f'[{symbol}] New Max. Profit: {calculator.profit_after_tax()}'
         send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
                    subject=subject, message=message, config=config)
 
     elif current_value < global_min:
-        subject = f'New Min. Profit: {c.profit_after_tax()}'
+        subject = f'[{symbol}] New Min. Profit: {calculator.profit_after_tax()}'
         send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
                    subject=subject, message=message, config=config)
 
@@ -65,5 +62,6 @@ def prepare_min_max_email(current_value, global_min, global_max, config):
         print("Email not sent.")
 
 
-def prepare_daily_email():
-    pass
+def prepare_daily_email(current_value, config):
+    send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=Constants.MY_EMAIL,
+               subject='DAILY TEST', message='', config=config)

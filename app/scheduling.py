@@ -41,25 +41,32 @@ def min_max_for_all():
 
             print('\n' + '-'*50 + '\n')
 
-            symbol = transaction['symbol']
-            # todo: this should be extracted to prepare_mail (chyba)
-            sv = StockValue(symbol=symbol, config=config)
+            sv = StockValue(symbol=transaction['symbol'], config=config)
             bankier = sv.get_bankier()
             current_value, bankier_time = sv.get_values(bankier)
 
-            # todo: refactor history (add: mail, stock)
             hm = HistoryManager()
-
-            global_min = hm.get_min()
-            global_max = hm.get_max()
+            global_min = hm.get_min(transaction['symbol'], recipient['address'])
+            global_max = hm.get_max(transaction['symbol'], recipient['address'])
 
             calculator = Calculator(transaction['buy_quantity'],
                                     transaction['buy_price'],
                                     transaction['buy_quantity'],
                                     current_value)
 
-            prepare_min_max_email(symbol, current_value, global_min,
+            prepare_min_max_email(transaction['symbol'], current_value, global_min,
                                   global_max, config, calculator)
-            hm.update_history(current_value, symbol, recipient['address'], bankier_time, now())
+            hm.update_history(current_value, transaction['symbol'], recipient['address'], bankier_time, now())
 
 
+def regular_for_all():
+    config = get_config()
+
+    for recipient in config['recipients']:
+        if recipient['daily_mail'].lower() == 'yes':
+            for transaction in recipient['transactions']:
+                sv = StockValue(symbol=transaction['symbol'], config=config)
+                bankier = sv.get_bankier()
+                current_value, bankier_time = sv.get_values(bankier)
+
+                prepare_daily_email(current_value, config)
