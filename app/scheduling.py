@@ -10,11 +10,12 @@ from app.calculator import Calculator
 def run_min_max_scheduler():
     """Check current prices and compare it with global minimum/maximum.
     If the price exceeds one of extremes, the mail is sent."""
-
+    config = get_config()
+    interval_in_minutes = config['min_max_interval_minutes']
     scheduler = BackgroundScheduler()
     # todo: change hours. GPW works 9-17, mon-fri
     scheduler.add_job(func=min_max_for_all, trigger="interval",
-                      seconds=10)
+                      minutes=interval_in_minutes)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
 
