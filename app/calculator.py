@@ -54,4 +54,4 @@ class Calculator:
             self.profit_with_commission_after_tax = self.profit_with_commission * (1 - Constants.CAPITAL_GAINS_TAX)
             return round(self.profit_with_commission_after_tax, 2)
 
-        return self.profit_with_commission
+        return round(self.profit_with_commission, 2)
