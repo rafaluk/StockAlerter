@@ -64,9 +64,10 @@ def regular_for_all():
 
     for recipient in config['recipients']:
         if recipient['daily_mail'].lower() == 'yes':
+            stocks_to_send = {}
             for transaction in recipient['transactions']:
                 sv = StockValue(symbol=transaction['symbol'], config=config)
                 bankier = sv.get_bankier()
                 current_value, bankier_time = sv.get_values(bankier)
-
-                prepare_daily_email(current_value, config)
+                stocks_to_send[transaction['symbol']] = current_value
+            prepare_daily_email(recipient, stocks_to_send, config)

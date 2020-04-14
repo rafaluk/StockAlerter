@@ -44,6 +44,13 @@ def compose_min_max_message(calculator, current_value, currency='PLN'):
         f'{calculator.profit_after_tax()} {currency} (after 19% tax)\n'
 
 
+def compose_daily_message(stocks, currency='PLN'):
+    message = ''
+    for key, value in stocks.items():
+        message += key + ': ' + value + f' {currency}'
+    return message
+
+
 def prepare_min_max_email(user, symbol, current_value, global_min, global_max, config, calculator):
 
     message = compose_min_max_message(calculator, current_value)
@@ -63,6 +70,7 @@ def prepare_min_max_email(user, symbol, current_value, global_min, global_max, c
         print("Email not sent.")
 
 
-def prepare_daily_email(user, current_value, config):
+def prepare_daily_email(user, stocks, config):
+    message = compose_daily_message(stocks)
     send_email(login=Constants.LOGIN, password=Constants.PASSWORD, recipient=user,
-               subject='DAILY TEST', message='', config=config)
+               subject='Daily summary', message=message, config=config)
