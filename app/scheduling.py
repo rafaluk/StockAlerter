@@ -22,12 +22,10 @@ def run_min_max_scheduler():
 
 def run_regular_scheduler():
     """Send regular mail with current prices."""
-    # todo: schedule for 18:00 every day
     # todo: daily min, max, open, close
     # todo: attach a chart
     # todo: one mail for one recipient with different stocks
     scheduler = BackgroundScheduler()
-    # todo: change hours. GPW works 9-17.
     scheduler.add_job(func=regular_for_all, trigger="cron",
                       hour=18, day_of_week='mon-fri')
     scheduler.start()
@@ -62,13 +60,17 @@ def min_max_for_all():
 
 def regular_for_all():
     config = get_config()
+    print("dupes")
 
     for recipient in config['recipients']:
         if recipient['daily_mail'].lower() == 'yes':
             stocks_to_send = {}
+            calculators = []
             for transaction in recipient['transactions']:
                 sv = StockValue(symbol=transaction['symbol'], config=config)
                 bankier = sv.get_bankier()
                 current_value, bankier_time = sv.get_values(bankier)
                 stocks_to_send[transaction['symbol']] = current_value
-            prepare_daily_email(recipient, stocks_to_send, config)
+                calculators.append(Calculator(transaction['buy_quantity'], transaction['buy_price'],
+                                              transaction['buy_quantity'], current_value))
+            prepare_daily_email(recipient['address'], stocks_to_send, calculators, config)
