@@ -18,12 +18,6 @@ class Calculator:
         self.profit_with_commission = None
         self.profit_with_commission_after_tax = None
 
-        # print('Calculator initiated with parameters:')
-        # print('\tbuy qt.:', self.number_of_stocks_buy)
-        # print('\tbuy price:', self.price_buy)
-        # print('\tsell qt.:', self.number_of_stocks_sell)
-        # print('\tsell price:', self.price_sell)
-
     def commissions(self):
         self.commission_buy = self.number_of_stocks_buy * self.price_buy * Constants.COMMISSION_RATE
         self.commission_sell = self.number_of_stocks_sell * self.price_sell * Constants.COMMISSION_RATE
