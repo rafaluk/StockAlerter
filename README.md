@@ -1,6 +1,4 @@
 # StockAlerter
-**Send me an email, when a price on my GPW stock reaches global max or min.**
-
 StockAlerter is **a simple helper** for all, who **invest their money** on a stock exchange! It **alerts you with an email**, when the prices are extremely low/high and **sends you a daily summary**. All these with **detailed calculations**.
 
 StockAlerter can operate **multiple stocks** for **multiple users** with different emails.
