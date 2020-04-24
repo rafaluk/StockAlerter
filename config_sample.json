@@ -1,0 +1,48 @@
+{
+  "recipients": [
+    {
+      "address": "user1@gmail.com",
+      "daily_mail": "yes",
+      "transactions": [
+        {
+          "symbol": "PKO",
+          "min_max_mail": "yes",
+          "buy_price": 20.50,
+          "buy_quantity": 10
+        },
+        {
+          "symbol": "CDPROJEKT",
+          "min_max_mail": "no",
+          "buy_price": 220,
+          "buy_quantity": 50
+        }
+      ]
+    },
+    {
+      "address": "user2@gmail.com",
+      "daily_mail": "yes",
+      "transactions": [
+        {
+          "symbol": "OPL",
+          "min_max_mail": "yes",
+          "buy_price": 6.50,
+          "buy_quantity": 12
+        },
+        {
+          "symbol": "PKN",
+          "min_max_mail": "yes",
+          "buy_price": 61.22,
+          "buy_quantity": 2
+        }
+      ]
+    }
+  ],
+  "min_max_interval_minutes": 5,
+  "smtp": {
+    "host": "smtp.gmail.com",
+    "port": 587
+  },
+  "sources": {
+    "bankier": "https://www.bankier.pl/inwestowanie/profile/quote.html?symbol="
+  }
+}
