@@ -11,7 +11,6 @@ class Constants:
     CAPITAL_GAINS_TAX = 0.19
     LOGIN = os.environ.get('STOCK_ALERTER_LOGIN')
     PASSWORD = os.environ.get('STOCK_ALERTER_PASSWORD')
-    MY_EMAIL = os.environ.get('MY_GMAIL')
 
 
 def get_config():
