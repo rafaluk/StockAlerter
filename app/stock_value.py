@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from app.utils import convert_epoch, calc_time
+from app.utils import convert_epoch, calculate_time
 
 
 class StockValue:
@@ -8,7 +8,7 @@ class StockValue:
         self.symbol = str(symbol)
         self.config = config
 
-    @calc_time
+    @calculate_time
     def get_bankier(self):
         """Gets bankier.pl website of a stock, specified with symbol variable.
 

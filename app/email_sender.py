@@ -1,11 +1,10 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from app.utils import calc_time, Constants
-from app.calculator import Calculator
+from app.utils import calculate_time, Constants
 
 
-@calc_time
+@calculate_time
 def send_email(login, password, recipient, subject, message, config):
 
     server = smtplib.SMTP(host=config['smtp']['host'],
@@ -21,14 +20,14 @@ def send_email(login, password, recipient, subject, message, config):
     msg.attach(MIMEText(message, 'plain'))
 
     server.send_message(msg)
-    # todo: print this only if no errors
+    # todo: print this only if no errors (try/except)
     print('Email sent.')
     server.quit()
 
     del msg
 
 
-def compose_min_max_message(calculator, current_value, currency='PLN'):
+def compose_email_body(calculator, current_value, currency='PLN'):
     return f'Current price: {current_value} {currency}, ' \
         f'current value: {current_value} {currency} * {calculator.number_of_stocks_buy} = ' \
         f'{current_value*calculator.number_of_stocks_buy} {currency}\n' \
@@ -54,7 +53,7 @@ def compose_daily_message(stocks, calculators, currency='PLN'):
 
 def prepare_min_max_email(user, symbol, current_value, global_min, global_max, config, calculator):
 
-    message = compose_min_max_message(calculator, current_value)
+    message = compose_email_body(calculator, current_value)
     print(message)
 
     if current_value > global_max:

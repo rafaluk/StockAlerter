@@ -28,7 +28,7 @@ def now():
     return datetime.now().strftime("%c")
 
 
-def calc_time(func):
+def calculate_time(func):
     def wrapper(*args, **kwargs):
         start_time = time()
         result = func(*args, **kwargs)
