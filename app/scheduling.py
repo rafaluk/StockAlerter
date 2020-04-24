@@ -4,6 +4,7 @@ from app.stock_value import StockValue
 from app.utils import now, get_config
 from app.history_manager import HistoryManager
 from app.email_sender import prepare_min_max_email, prepare_daily_email
+from app.email_preparer import prepare_min_max_email, prepare_daily_email
 from app.calculator import Calculator
 
 
@@ -33,6 +34,7 @@ def run_regular_scheduler():
 
 
 def min_max_for_all():
+    """Logic for sending min/max mail"""
     config = get_config()
 
     for recipient in config['recipients']:
