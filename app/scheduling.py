@@ -3,7 +3,6 @@ import atexit
 from app.stock_value import StockValue
 from app.utils import now, get_config
 from app.history_manager import HistoryManager
-from app.email_sender import prepare_min_max_email, prepare_daily_email
 from app.email_preparer import prepare_min_max_email, prepare_daily_email
 from app.calculator import Calculator
 
